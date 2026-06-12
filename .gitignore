@@ -4,3 +4,7 @@ run/
 logs/
 crash-reports/
 *.log
+
+*.bak
+Compilation
+Task
