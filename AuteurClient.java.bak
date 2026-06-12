@@ -1,0 +1,68 @@
+package com.noahkeller.auteur;
+
+import com.noahkeller.auteur.record.RecordingManager;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
+import com.noahkeller.auteur.replay.playback.PlaybackManager;
+import com.noahkeller.auteur.record.RecordedFrame;
+public class AuteurClient implements ClientModInitializer {
+
+    @Override
+    public void onInitializeClient() {
+        Auteur.LOGGER.info("Auteur client iniciado!");
+
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            Minecraft minecraft = Minecraft.getInstance();
+            LocalPlayer player = minecraft.player;
+
+            if (player == null || minecraft.level == null) {
+                return;
+            }
+
+            RecordedFrame replayFrame =
+                    PlaybackManager.PLAYBACK.currentFrame();
+
+            if (replayFrame != null) {
+                player.setPos(
+                        replayFrame.x(),
+                        replayFrame.y(),
+                        replayFrame.z()
+                );
+
+                player.setYRot(replayFrame.yaw());
+                player.setXRot(replayFrame.pitch());
+
+                PlaybackManager.PLAYBACK.tick();
+
+                return;
+            }
+
+            if (RecordingManager.SESSION.isRecording()) {
+
+                RecordingManager.SESSION
+                        .recorder()
+                        .record(
+                player.getX(),
+                player.getY(),
+                player.getZ(),
+                player.getYRot(),
+                player.getXRot()
+            );
+
+            
+                }
+
+            int size =
+                    RecordingManager.SESSION
+                            .recorder()
+                            .size();
+
+
+            if (size % 100 == 0) {
+                Auteur.LOGGER.info("Auteur gravou {} frames", size);
+            }
+        });
+    }
+}

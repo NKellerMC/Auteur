@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.noahkeller.auteur.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "AuteurPauseMenuMixin",
+    "AuteurTitleScreenMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
