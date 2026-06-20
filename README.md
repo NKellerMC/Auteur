@@ -18,8 +18,9 @@ Auteur is a Minecraft mod which allows you to record your Minecraft gameplay, pl
 1. Install Fabric Loader (https://fabricmc.net/use/installer/)
 2. Install Fabric API (https://modrinth.com/mod/fabric-api)
 3. Download Auteur from Modrinth
-4. Place Auteur and Fabric API into your mods folder (`.minecraft/mods`)
-5. Run the game
+(https://modrinth.com/mod/auteur)
+5. Place Auteur and Fabric API into your mods folder (`.minecraft/mods`)
+6. Run the game
 
 ## Current Status
 
